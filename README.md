@@ -1,17 +1,21 @@
-# README
+# TPS Report
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting Started
 
-Things you may want to cover:
+### System dependencies
 
-* Ruby version
+* Node.js v12.16.2
+* Ruby v2.6.3
 
-* System dependencies
+### Configuration
 
-* Configuration
+Database creation
 
-* Database creation
+```bash
+$ rails db:create
+```
+
+## TODO
 
 * Database initialization
 
