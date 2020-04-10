@@ -5,8 +5,8 @@ class Software extends React.Component {
   constructor(props) {
       super(props);
       this.state = { software: { attributes: "" } };
-
       this.addHtmlEntities = this.addHtmlEntities.bind(this);
+      this.deleteSoftware = this.deleteSoftware.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +34,32 @@ class Software extends React.Component {
     return String(str)
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
+  }
+
+  deleteSoftware() {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    const url = `/api/v1/software/destroy/${id}`;
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then(() => this.props.history.push("/software"))
+      .catch(error => console.log(error.message));
   }
 
   render() {
@@ -81,13 +107,13 @@ class Software extends React.Component {
               />
             </div>
             <div className="col-sm-12 col-lg-2">
-              <button type="button" className="btn btn-danger">
+              <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
                 Delete software
               </button>
             </div>
           </div>
-          <Link to="/softwares" className="btn btn-link">
-            Back to softwares
+          <Link to="/" className="btn btn-link">
+            Back to Software List
           </Link>
         </div>
       </div>

@@ -89,19 +89,10 @@ class NewSoftware extends React.Component {
                   onChange={this.onChange}
                 />
               </div>
-              {/* <label htmlFor="instruction">Preparation Instructions</label>
-              <textarea
-                className="form-control"
-                id="instruction"
-                name="instruction"
-                rows="5"
-                required
-                onChange={this.onChange}
-              /> */}
               <button type="submit" className="btn custom-button mt-3">
                 Create software
               </button>
-              <Link to="/softwares" className="btn btn-link mt-3">
+              <Link to="/" className="btn btn-link mt-3">
                 Back to software list
               </Link>
             </form>
