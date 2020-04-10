@@ -30,4 +30,5 @@ class Api::V1::SoftwareController < ApplicationController
 
   def recipe_params
     params.permit(:name, :org, :full_name)
+  end
 end
