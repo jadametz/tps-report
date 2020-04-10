@@ -68,9 +68,6 @@ class SoftwareList extends React.Component {
             <div className="row">
               {softwareList.length > 0 ? allsoftwares : noSoftware}
             </div>
-            <Link to="/" className="btn btn-link">
-              Home
-            </Link>
           </main>
         </div>
       </>
