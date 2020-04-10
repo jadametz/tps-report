@@ -30,9 +30,11 @@ class NewSoftware extends React.Component {
     const url = "/api/v1/software/create";
     const { name, org, full_name } = this.state;
 
-    if (name.length == 0 || org.length == 0 || full_name.length == 0)
+    if (name.length == 0 || org.length == 0) {
+      console.log("lengths were empty");
       return;
-    
+    }
+
     const body = {
       name,
       org,
@@ -52,7 +54,7 @@ class NewSoftware extends React.Component {
         if (response.ok) {
           return response.json();
         }
-        throw new Error("Network response was not ok.")
+        throw new Error("Network response was not ok.");
       })
       .then(response => this.props.history.push(`/software/${response.id}`))
       .catch(error => console.log(error.message));
@@ -67,6 +69,17 @@ class NewSoftware extends React.Component {
               Add new software.
             </h1>
             <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+                <label htmlFor="org">GitHub Organization</label>
+                <input
+                  type="text"
+                  name="org"
+                  id="org"
+                  className="form-control"
+                  required
+                  onChange={this.onChange}
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="softwareName">Software Name</label>
                 <input
@@ -78,22 +91,11 @@ class NewSoftware extends React.Component {
                   onChange={this.onChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="gitHubOrg">GitHub Organization</label>
-                <input
-                  type="text"
-                  name="org"
-                  id="gitHubOrg"
-                  className="form-control"
-                  required
-                  onChange={this.onChange}
-                />
-              </div>
               <button type="submit" className="btn custom-button mt-3">
                 Create software
               </button>
               <Link to="/" className="btn btn-link mt-3">
-                Back to software list
+                Back to Software List
               </Link>
             </form>
           </div>

@@ -28,7 +28,7 @@ class Api::V1::SoftwareController < ApplicationController
 
   private
 
-  def recipe_params
+  def software_params
     params.permit(:name, :org, :full_name)
   end
 end
