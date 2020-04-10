@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class Softwares extends React.Component {
+class SoftwareList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      softwares: []
+      softwareList: []
     };
   }
 
@@ -18,12 +18,12 @@ class Softwares extends React.Component {
         }
         throw new Error("Network response was not ok.");
       })
-      .then(response => this.setState({ softwares: response }))
+      .then(response => this.setState({ softwareList: response }))
       .catch(() => this.props.history.push("/"));
   }
   render() {
-    const { softwares } = this.state;
-    const allsoftwares = softwares.map((software, index) => (
+    const { softwareList } = this.state;
+    const allsoftwares = softwareList.map((software, index) => (
       <div key={index} className="col-md-6 col-lg-4">
         <div className="card mb-4">
           <img
@@ -66,7 +66,7 @@ class Softwares extends React.Component {
               </Link>
             </div>
             <div className="row">
-              {softwares.length > 0 ? allsoftwares : noSoftware}
+              {softwareList.length > 0 ? allsoftwares : noSoftware}
             </div>
             <Link to="/" className="btn btn-link">
               Home
@@ -77,4 +77,5 @@ class Softwares extends React.Component {
     );
   }
 }
-export default Softwares;
+
+export default SoftwareList;
