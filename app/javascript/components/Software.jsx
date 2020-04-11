@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 class Software extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {};
+      this.state = { software: {
+        full_name: ""
+      }};
       this.addHtmlEntities = this.addHtmlEntities.bind(this);
       this.deleteSoftware = this.deleteSoftware.bind(this);
   }
@@ -24,9 +26,8 @@ class Software extends React.Component {
         }
         throw new Error("Network response was not ok.");
       })
-      .then(response => this.setState({ software: response}));
-      // TODO
-      // .catch(() => this.props.history.push("/software"));
+      .then(response => this.setState({ software: response}))
+      .catch(() => this.props.history.push("/"));
   }
 
   addHtmlEntities(str) {
@@ -64,34 +65,27 @@ class Software extends React.Component {
   render() {
     const { software } = this.state;
 
-    if (software) {
-      return (
-        <>
-          <section className="jumbotron jumbotron-fluid">
-            <div className="container">
-              <h1 className="display-4">{software.full_name}</h1>
-            </div>
-          </section>
-          <div>
-            <main className="container">
-              <div className="text-left mb-3">
-                <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
-                  Delete software
-                </button>
-              </div>
-              <Link to="/" className="btn btn-link">
-                Back to Software List
-              </Link>
-            </main>
+    return (
+      <>
+        <section className="jumbotron jumbotron-fluid">
+          <div className="container">
+            <h1 className="display-4">{software.full_name}</h1>
           </div>
-        </>
-      );
-    } else {
-      console.log("loading")
-      return (
-        <div>Loading</div>
-      )
-    }
+        </section>
+        <div>
+          <main className="container">
+            <div className="text-left mb-3">
+              <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
+                Delete software
+              </button>
+            </div>
+            <Link to="/" className="btn btn-link">
+              Back to Software List
+            </Link>
+          </main>
+        </div>
+      </>
+    );
   }
 }
 
