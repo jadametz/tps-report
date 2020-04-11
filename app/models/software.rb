@@ -3,6 +3,9 @@ class Software < ApplicationRecord
   validates :org, presence: true
   validates :full_name, presence: true
 
+  validates_date :latest_release_date, :on_or_before => lambda { Date.current }
+  validates_date :in_use_release_date, :on_or_before => lambda { Date.current }
+
   # we don't have after_save_commit from Rails 6
   # this will not fire on updates
   after_create_commit :reconcile_immediately
