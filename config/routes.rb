@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'software/index'
       post 'software/create'
-      get 'software/show'
+      get 'software/show/:id', action: 'show', controller: 'software'
       delete 'software/destroy'
     end
   end

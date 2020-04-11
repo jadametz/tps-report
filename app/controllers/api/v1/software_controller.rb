@@ -31,4 +31,8 @@ class Api::V1::SoftwareController < ApplicationController
   def software_params
     params.permit(:name, :org, :full_name)
   end
+
+  def software
+    @software ||= Software.find(params[:id])
+  end
 end

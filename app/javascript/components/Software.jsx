@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Software extends React.Component {
   constructor(props) {
       super(props);
-      this.state = { software: { attributes: "" } };
+      this.state = {};
       this.addHtmlEntities = this.addHtmlEntities.bind(this);
       this.deleteSoftware = this.deleteSoftware.bind(this);
   }
@@ -16,8 +16,7 @@ class Software extends React.Component {
       }
     } = this.props;
 
-    const url = `/api/v1/show/${id}`;
-
+    const url = `/api/v1/software/show/${id}`;
     fetch(url)
       .then(response => {
         if (response.ok) {
@@ -64,60 +63,35 @@ class Software extends React.Component {
 
   render() {
     const { software } = this.state;
-    let attributes = "No attributes available";
 
-    if (software.attributes.length > 0) {
-      attributes = software.attributes
-        .split(",")
-        .map((ingredient, index) => (
-          <li key={index} className="list-group-item">
-            {ingredient}
-          </li>
-        ));
-    }
-    const softwareAttributes = this.addHtmlEntities(software.instruction);
-
-    return (
-      <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
-          <img
-            src={software.image}
-            alt={`${software.name} image`}
-            className="img-fluid position-absolute"
-          />
-          <div className="overlay bg-dark position-absolute" />
-          <h1 className="display-4 position-relative text-white">
-            {software.name}
-          </h1>
-        </div>
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-sm-12 col-lg-3">
-              <ul className="list-group">
-                <h5 className="mb-2">attributes</h5>
-                {attributes}
-              </ul>
+    if (software) {
+      return (
+        <>
+          <section className="jumbotron jumbotron-fluid">
+            <div className="container">
+              <h1 className="display-4">{software.full_name}</h1>
             </div>
-            <div className="col-sm-12 col-lg-7">
-              <h5 className="mb-2">Preparation Instructions</h5>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `${softwareAttributes}`
-                }}
-              />
-            </div>
-            <div className="col-sm-12 col-lg-2">
-              <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
-                Delete software
-              </button>
-            </div>
+          </section>
+          <div>
+            <main className="container">
+              <div className="text-left mb-3">
+                <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
+                  Delete software
+                </button>
+              </div>
+              <Link to="/" className="btn btn-link">
+                Back to Software List
+              </Link>
+            </main>
           </div>
-          <Link to="/" className="btn btn-link">
-            Back to Software List
-          </Link>
-        </div>
-      </div>
-    );
+        </>
+      );
+    } else {
+      console.log("loading")
+      return (
+        <div>Loading</div>
+      )
+    }
   }
 }
 
