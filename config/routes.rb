@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       get 'software/index'
       post 'software/create'
       get 'software/show/:id', action: 'show', controller: 'software'
-      delete 'software/destroy'
+      delete 'software/destroy/:id', action: 'destroy', controller: 'software'
     end
   end
   root 'homepage#index'

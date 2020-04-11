@@ -57,7 +57,7 @@ class Software extends React.Component {
         }
         throw new Error("Network response was not ok.");
       })
-      .then(() => this.props.history.push("/software"))
+      .then(() => this.props.history.push("/"))
       .catch(error => console.log(error.message));
   }
 
