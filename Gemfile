@@ -21,9 +21,6 @@ gem 'webpacker'
 # API client for GitHub
 gem 'octokit', '~> 4.0'
 
-# Validator for date attributes
-gem 'validates_timeliness', '~> 4.0'
-
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
