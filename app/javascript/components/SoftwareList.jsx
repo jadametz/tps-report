@@ -21,21 +21,28 @@ class SoftwareList extends React.Component {
       .then(response => this.setState({ softwareList: response }))
       .catch(() => this.props.history.push("/"));
   }
+
   render() {
     const { softwareList } = this.state;
 
-    const allsoftwares = softwareList.map((software, index) => (
-      <div key={index} className="col-md-6 col-lg-4">
-        <div className="card mb-4">
-          <div className="card-body">
-            <h5 className="card-title">{software.full_name}</h5>
-            <Link to={`/software/${software.id}`} className="btn custom-button">
-              View Software
-            </Link>
-          </div>
-        </div>
-      </div>
-    ));
+    const allsoftwares = (
+      <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Organization</th>
+            <th scope="col">Repository</th>
+          </tr>
+        </thead>
+        <tbody>
+          {softwareList.map((software, index) => (
+            <tr>
+              <td>{software.org}</td>
+              <td><Link to={`/software/${software.id}`}>{software.name}</Link></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
 
     const noSoftware = (
       <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
