@@ -9,7 +9,8 @@ class NewSoftware extends React.Component {
       alert: "",
       name: "",
       org: "",
-      full_name: ""
+      full_name: "",
+      in_use_release: ""
     };
 
     this.onChange = this.onChange.bind(this);
@@ -33,11 +34,18 @@ class NewSoftware extends React.Component {
     const name = this.state.name.trim();
     const org = this.state.org.trim();
     const full_name = org + "/" + name;
+    const in_use_release = this.state.in_use_release.trim();
+
+    if (name.length == 0 || org.length == 0) {
+      console.log("lengths were empty");
+      return;
+    }
 
     const body = {
       name,
       org,
       full_name
+      in_use_release
     };
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -91,6 +99,17 @@ class NewSoftware extends React.Component {
                   type="text"
                   name="name"
                   id="softwareName"
+                  className="form-control"
+                  required
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="softwareInUseRelease">Version</label>
+                <input
+                  type="text"
+                  name="in_use_release"
+                  id="softwareInUseRelease"
                   className="form-control"
                   required
                   onChange={this.onChange}
