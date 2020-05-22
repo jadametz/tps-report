@@ -2,7 +2,6 @@ class Software < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :org }
   validates :org, presence: true
   validates :full_name, presence: true, uniqueness: true
-  validates :in_use_release, presence: true
 
   # we don't have after_save_commit from Rails 6
   # this will not fire on updates
