@@ -74,6 +74,27 @@ class Software extends React.Component {
         </section>
         <div>
           <main className="container">
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Info</th>
+                  <th scope="col">Your Version</th>
+                  <th scope="col">Latest Release</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Version</td>
+                  <td>TODO</td>
+                  <td>{software.latest_release}</td>
+                </tr>
+                <tr>
+                  <td>Release Date</td>
+                  <td>TODO</td>
+                  <td>{software.latest_release_date}</td>
+                </tr>
+              </tbody>
+            </table>
             <div className="text-left mb-3">
               <button type="button" className="btn btn-danger" onClick={this.deleteSoftware}>
                 Delete software

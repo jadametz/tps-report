@@ -31,6 +31,8 @@ class SoftwareList extends React.Component {
           <tr>
             <th scope="col">Organization</th>
             <th scope="col">Repository</th>
+            <th scope="col">Latest Release</th>
+            <th scope="col">Latest Release Date</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +40,8 @@ class SoftwareList extends React.Component {
             <tr>
               <td>{software.org}</td>
               <td><Link to={`/software/${software.id}`}>{software.name}</Link></td>
+              <td>{software.latest_release}</td>
+              <td>{software.latest_release_date}</td>
             </tr>
           ))}
         </tbody>
