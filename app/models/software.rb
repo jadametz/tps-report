@@ -2,6 +2,7 @@ class Software < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :org }
   validates :org, presence: true
   validates :full_name, presence: true, uniqueness: true
+  validates :in_use_release, presence: true
 
   # we don't have after_save_commit from Rails 6
   # this will not fire on updates
@@ -30,6 +31,8 @@ class Software < ApplicationRecord
     # TODO move this github_client into a client wrapper in lib
     releases = Rails.application.config.github_client.list_releases(full_name).reject { |rel| rel.prerelease == true }
     unless releases.empty?
+      in_use_release = releases.find { |release| release.name == self.in_use_release }
+      updates[:in_use_release_date] = in_use_release.published_at
       updates[:latest_release] = releases.first.name
       updates[:latest_release_date] = releases.first.published_at
     else
