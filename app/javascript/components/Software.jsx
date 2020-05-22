@@ -78,19 +78,19 @@ class Software extends React.Component {
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">Info</th>
-                  <th scope="col">Your Version</th>
+                  <th scope="col">In Use Release</th>
                   <th scope="col">Latest Release</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Version</td>
-                  <td>TODO</td>
+                  <td>{software.in_use_release}</td>
                   <td>{software.latest_release}</td>
                 </tr>
                 <tr>
                   <td>Release Date</td>
-                  <td>TODO</td>
+                  <td>{software.in_use_release_date}</td>
                   <td>{software.latest_release_date}</td>
                 </tr>
               </tbody>
