@@ -7,11 +7,19 @@ class Software < ApplicationRecord
   # this will not fire on updates
   after_create_commit :reconcile_immediately
 
+  # remove whitespace server-side to be sure
+  before_validation :remove_possible_whitespace
+
   def reconcile!
     reconcile_with_github
   end
 
   private
+
+  def remove_possible_whitespace
+    # ignores nils or values that don't support strip!()
+    attributes.each { |_, value| value.try(:strip!) }
+  end
 
   def reconcile_immediately
     ReconcileSoftware.perform_now(self)

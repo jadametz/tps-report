@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Alert from "./Alert";
 
 class NewSoftware extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      alert: "",
       name: "",
       org: "",
       full_name: ""
@@ -28,17 +30,14 @@ class NewSoftware extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     const url = "/api/v1/software/create";
-    const { name, org, full_name } = this.state;
-
-    if (name.length == 0 || org.length == 0) {
-      console.log("lengths were empty");
-      return;
-    }
+    const name = this.state.name.trim();
+    const org = this.state.org.trim();
+    const full_name = org + "/" + name;
 
     const body = {
       name,
       org,
-      full_name: org + "/" + name
+      full_name
     };
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -54,10 +53,13 @@ class NewSoftware extends React.Component {
         if (response.ok) {
           return response.json();
         }
-        throw new Error("Network response was not ok.");
+        throw new Error("The create failed!");
       })
       .then(response => this.props.history.push(`/software/${response.id}`))
-      .catch(error => console.log(error.message));
+      .catch(error => {
+        console.log(error.message)
+        this.setState({ alert: error.message })
+      });
   }
 
   render() {
@@ -68,6 +70,9 @@ class NewSoftware extends React.Component {
             <h1 className="font-weight-normal mb-5">
               Add new software.
             </h1>
+            { this.state.alert && (
+              <Alert>{ this.state.alert }</Alert>)
+            }
             <form onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label htmlFor="org">GitHub Organization</label>

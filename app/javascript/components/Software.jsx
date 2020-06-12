@@ -74,8 +74,8 @@ class Software extends React.Component {
         </section>
         <div>
           <main className="container">
-            <table class="table table-striped table-hover">
-              <thead class="thead-dark">
+            <table className="table table-striped table-hover">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">Info</th>
                   <th scope="col">Your Version</th>

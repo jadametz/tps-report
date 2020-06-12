@@ -6,19 +6,11 @@ class Api::V1::SoftwareController < ApplicationController
 
   def create
     software = Software.create!(software_params)
-    if software
-      render json: software
-    else
-      render json: software.errors
-    end
+    render json: software
   end
 
   def show
-    if software
-      render json: software
-    else
-      render json: software.errors
-    end
+    render json: software
   end
 
   def destroy

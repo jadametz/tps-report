@@ -26,8 +26,8 @@ class SoftwareList extends React.Component {
     const { softwareList } = this.state;
 
     const allsoftwares = (
-      <table class="table table-striped table-hover">
-        <thead class="thead-dark">
+      <table className="table table-striped table-hover">
+        <thead className="thead-dark">
           <tr>
             <th scope="col">Organization</th>
             <th scope="col">Repository</th>
