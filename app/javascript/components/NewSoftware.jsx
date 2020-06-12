@@ -31,7 +31,7 @@ class NewSoftware extends React.Component {
     event.preventDefault();
     const url = "/api/v1/software/create";
     const name = this.state.name.trim();
-    const org = this.state.name.trim();
+    const org = this.state.org.trim();
     const full_name = org + "/" + name;
 
     const body = {
