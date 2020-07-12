@@ -35,16 +35,18 @@ class Software < ApplicationRecord
     else
       # if we don't have releases, check for tags
       tags = Rails.application.config.github_client.tags(full_name)
-      # TODO filter for "*pre*" tags
-      updates[:latest_release] = tags.first.name
-      begin
-        latest_tag = Rails.application.config.github_client.tag(full_name, tags.first.commit.sha)
-        updates[:latest_release_date] = latest_tag.tagger.date
-      # TODO fix this, yuck
-      rescue Octokit::NotFound
-        # may be a lightweight tag, ie just a ref
-        latest_tag = Rails.application.config.github_client.get(tags.first.commit.url)
-        updates[:latest_release_date] = latest_tag.committer.date
+      # TODO: filter for "*pre*" tags
+      unless tags.empty?
+        updates[:latest_release] = tags.first.name
+        begin
+          latest_tag = Rails.application.config.github_client.tag(full_name, tags.first.commit.sha)
+          updates[:latest_release_date] = latest_tag.tagger.date
+        # TODO fix this, yuck
+        rescue Octokit::NotFound
+          # may be a lightweight tag, ie just a ref
+          latest_tag = Rails.application.config.github_client.get(tags.first.commit.url)
+          updates[:latest_release_date] = latest_tag.committer.date
+        end
       end
     end
     unless updates.empty?
