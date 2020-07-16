@@ -2,35 +2,37 @@ require 'rails_helper'
 
 RSpec.describe Software, type: :model do
 
-  it 'cannot save without attributes' do
-    software = Software.new
-    software.save
+  describe '#name' do
+    subject { Software.new(name: "something", org: "else", full_name: "else/somthing") }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name).scoped_to(:org) }
   end
 
-  context "uniqueness" do
-    before do
-      allow_any_instance_of(Software).to receive(:reconcile_immediately).and_return(true)
-    end
+  describe '#org' do
+    it { is_expected.to validate_presence_of(:org) }
+  end
 
-    it "cannot have duplication with an org" do
-      Software.create(name: 'cannot', org: 'duplicate', full_name: 'duplicate/cannot')
-      duplicate = Software.new(name: 'cannot', org: 'duplicate', full_name: 'duplicate/cannot')
-      expect(duplicate).to_not be_valid
-    end
+  describe '#full_name' do
+    subject { Software.new(name: "something", org: "else", full_name: "else/somthing") }
+    it { is_expected.to validate_presence_of(:full_name) }
+    it { is_expected.to validate_uniqueness_of(:full_name) }
+  end
 
-    it "can have duplication across org(s)" do
-      Software.create(name: 'can', org: 'duplicate', full_name: 'duplicate/can')
-      duplicate = Software.new(name: 'can', org: 'different', full_name: 'different/can')
-      expect(duplicate).to be_valid
-    end
+  it 'strips whitespace on attributes' do
+    new = Software.new(name: ' therebe ', org: ' whitespace ', full_name: ' therebe/whitespace ')
+    # TODO: This abuses the validation to modify the object, we should just override the attribute_writer
+    new.valid?
+    expect(new.name). to eql('therebe')
+    expect(new.org). to eql('whitespace')
+    expect(new.full_name). to eql('therebe/whitespace')
   end
 
   context '#after_create_commit' do
-    it 'queues for reconcile after being saved' do
+    it 'queues to be reconciled after commit' do
       ActiveJob::Base.queue_adapter = :test
       expect {
         Software.create(full_name: 'jadametz/tps-report', org: 'jadametz', name: 'tps-report')
-      }.to have_enqueued_job(ReconcileSoftware)
+      }.to have_enqueued_job(ReconcileSoftwareJob)
     end
   end
 end

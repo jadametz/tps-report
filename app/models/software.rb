@@ -8,6 +8,7 @@ class Software < ApplicationRecord
   after_create_commit :reconcile_immediately
 
   # remove whitespace server-side to be sure
+  # TODO: This abuses the validation to modify the object, we should just override the attribute_writer
   before_validation :remove_possible_whitespace
 
   def reconcile!
@@ -22,7 +23,7 @@ class Software < ApplicationRecord
   end
 
   def reconcile_immediately
-    ReconcileSoftware.perform_later(self)
+    ReconcileSoftwareJob.perform_later(self)
   end
 
   def reconcile_with_github
