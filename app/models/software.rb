@@ -22,7 +22,7 @@ class Software < ApplicationRecord
   end
 
   def reconcile_immediately
-    ReconcileSoftware.perform_now(self)
+    ReconcileSoftware.perform_later(self)
   end
 
   def reconcile_with_github
