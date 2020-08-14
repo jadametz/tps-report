@@ -9,10 +9,9 @@
 
 ## About the Project
 
-This started as a Passion Project idea from [@jadametz](https://github.com/jadametz) to solve a pain point in how teams stay on top of new releases
-for all the software they may have in use.
-
 "Third Party Software" Report is a web-based application designed to provide a heat map of in-use third party software to software development teams.
+
+This solves the pain point of having to consciously stay on top of new releases for all the software they may have in use.
 
 ![image](https://user-images.githubusercontent.com/9577818/90268263-5c776300-de1c-11ea-8d33-7c85f3fc0d09.png)
 
