@@ -21,7 +21,7 @@ class Api::V1::SoftwareController < ApplicationController
   private
 
   def software_params
-    params.permit(:name, :org, :full_name)
+    params.permit(:name, :org, :full_name, :in_use_release)
   end
 
   def software
