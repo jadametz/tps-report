@@ -39,7 +39,7 @@ class NewSoftware extends React.Component {
     const body = {
       name,
       org,
-      full_name
+      full_name,
       in_use_release
     };
 
