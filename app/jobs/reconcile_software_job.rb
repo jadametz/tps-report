@@ -1,4 +1,4 @@
-class ReconcileSoftware < ApplicationJob
+class ReconcileSoftwareJob < ApplicationJob
   queue_as :default
 
   def perform(software)
