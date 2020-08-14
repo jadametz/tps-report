@@ -36,11 +36,6 @@ class NewSoftware extends React.Component {
     const full_name = org + "/" + name;
     const in_use_release = this.state.in_use_release.trim();
 
-    if (name.length == 0 || org.length == 0) {
-      console.log("lengths were empty");
-      return;
-    }
-
     const body = {
       name,
       org,
